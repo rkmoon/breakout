@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 80, 30 )
+
+[node name="NoBrickZone" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

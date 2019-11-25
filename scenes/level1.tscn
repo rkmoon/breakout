@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scripts/level.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Paddle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Bricks.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/DeathZone.gd" type="Script" id=6]
+[ext_resource path="res://scenes/Camera.tscn" type="PackedScene" id=7]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 180, 10 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 140 )
+
+[sub_resource type="RectangleShape2D" id=3]
+resource_local_to_scene = true
+extents = Vector2( 120, 60 )
+
+[sub_resource type="RectangleShape2D" id=4]
+resource_local_to_scene = true
+extents = Vector2( 80, 35 )
+
+[sub_resource type="RectangleShape2D" id=5]
+resource_local_to_scene = true
+extents = Vector2( 20, 39.3102 )
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="UI" parent="." instance=ExtResource( 2 )]
+
+[node name="Paddle" parent="." groups=[
+"paddle",
+] instance=ExtResource( 3 )]
+speed = 300
+
+[node name="Ball" parent="." instance=ExtResource( 4 )]
+
+[node name="Walls" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Ceiling" type="StaticBody2D" parent="Walls"]
+position = Vector2( 160, -10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Ceiling"]
+shape = SubResource( 1 )
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( -10, 120 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource( 2 )
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2( 330, 120 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource( 2 )
+
+[node name="Bricks" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
+
+[node name="BrickZone" parent="Bricks" index="0"]
+editor/display_folded = false
+position = Vector2( 160, 80 )
+
+[node name="CollisionShape2D" parent="Bricks/BrickZone" index="0"]
+shape = SubResource( 3 )
+
+[node name="NoBrickZone" parent="Bricks" index="1"]
+editor/display_folded = false
+position = Vector2( 160, 80 )
+
+[node name="CollisionShape2D" parent="Bricks/NoBrickZone" index="0"]
+shape = SubResource( 4 )
+
+[node name="NoBrickZone2" parent="Bricks" index="2"]
+editor/display_folded = false
+position = Vector2( 160, 150 )
+
+[node name="CollisionShape2D" parent="Bricks/NoBrickZone2" index="0"]
+shape = SubResource( 5 )
+
+[node name="DeathZone" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 160, 250 )
+gravity = 0.0
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone"]
+shape = SubResource( 1 )
+
+[node name="Camera" parent="." instance=ExtResource( 7 )]
+current = true
+[connection signal="no_bricks_remaining" from="Ball" to="Paddle" method="_on_Ball_no_bricks_remaining"]
+
+[editable path="Bricks"]
+
+[editable path="Bricks/BrickZone"]
+
+[editable path="Bricks/NoBrickZone"]
+
+[editable path="Bricks/NoBrickZone2"]

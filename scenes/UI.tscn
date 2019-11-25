@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scripts/UI.gd" type="Script" id=1]
+[ext_resource path="res://assets/Wallpoet-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="UI" type="MarginContainer"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 315.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 630.0
+margin_bottom = 257.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 630.0
+margin_bottom = 257.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Lives" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_top = 120.0
+margin_right = 313.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 1 )
+
+[node name="Score" type="Label" parent="VBoxContainer/HBoxContainer"]
+margin_left = 317.0
+margin_top = 120.0
+margin_right = 630.0
+margin_bottom = 137.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+align = 2
+
+[node name="EndText" type="VBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_top = 21.0
+margin_right = 310.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LevelComplete" type="Label" parent="VBoxContainer/EndText"]
+margin_right = 310.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 3 )
+text = "Level Complete"
+align = 1
+
+[node name="Continue" type="Button" parent="VBoxContainer/EndText"]
+margin_top = 25.0
+margin_right = 310.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 4 )
+text = "Continue"
+flat = true
+[connection signal="button_down" from="VBoxContainer/EndText/Continue" to="." method="_on_Continue_button_down"]
